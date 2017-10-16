@@ -5,7 +5,7 @@
 	},
 	"license": "GPL-2.0+",
 	"type": "mediawiki-extension",
-	"homepage": "https:\/\/www.mediawiki.org\/wiki\/Extension:LDAPProvider",
+	"homepage": "https:\/\/www.mediawiki.org\/wiki\/Extension:LDAPAuthentication",
 	"description": "Allows user group syncronization with a LDAP resource",
 	"keywords": [
 		"extension",
