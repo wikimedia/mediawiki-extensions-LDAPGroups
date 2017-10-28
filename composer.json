@@ -5,23 +5,24 @@
 	},
 	"license": "GPL-2.0+",
 	"type": "mediawiki-extension",
-	"homepage": "https:\/\/www.mediawiki.org\/wiki\/Extension:LDAPAuthentication",
-	"description": "Allows user group syncronization with a LDAP resource",
+	"homepage": "https:\/\/www.mediawiki.org\/wiki\/Extension:LDAPGroups",
+	"description": "Map group membership from a directory service to MediaWiki.",
 	"keywords": [
 		"extension",
 		"wiki",
 		"mediawiki",
-		"ldap"
+		"ldap",
+		"groups"
 	],
 	"authors": [
 		{
-			"name": "Robert Vogel",
-			"email": "vogel@hallowelt.com",
+			"name": "Mark A. Hershberger",
+			"email": "mah@nichework.com",
 			"role": "Developer"
 		},
 		{
-			"name": "Mark A. Hershberger",
-			"email": "mah@nichework.com",
+			"name": "Robert Vogel",
+			"email": "vogel@hallowelt.com",
 			"role": "Contributor"
 		},
 		{

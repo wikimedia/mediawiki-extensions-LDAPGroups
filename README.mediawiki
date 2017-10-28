@@ -1,6 +1,6 @@
 == Extension:LDAPGroups ==
 
-This extension provides a common infratructure to connect to a LDAP resource
-and run queries against it.
+This extension provides an way to map group membership information from a directory service (such as LDAP or Active Directory) to MediaWiki gropus using the interface provided by LDAPProvider.
 
 === Configuration ===
+

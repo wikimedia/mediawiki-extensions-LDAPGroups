@@ -16,6 +16,13 @@
 		]
 	},
 	"callback": "MediaWiki\\Extension\\LDAPGroups\\Setup::onRegistration",
+	"config_prefix": "LDAPGroups",
+	"config": {
+		"Map": "group.json"
+	},
+	"ConfigRegistry": {
+		"ldapgroups": "MediaWiki\\Extension\\LDAPGroups\\Config::newInstance"
+	},
 	"load_composer_autoloader" : true,
 	"manifest_version": 2
 }
