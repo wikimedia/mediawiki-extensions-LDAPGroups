@@ -1,7 +1,7 @@
 {
 	"name": "mediawiki/ldap-groups",
 	"extra": {
-		"mw-name": "LDAPGroups"
+		"installer-name": "LDAPGroups"
 	},
 	"license": "GPL-2.0+",
 	"type": "mediawiki-extension",
