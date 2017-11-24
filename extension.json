@@ -18,10 +18,23 @@
 	"callback": "MediaWiki\\Extension\\LDAPGroups\\Setup::onRegistration",
 	"config_prefix": "LDAPGroups",
 	"config": {
-		"Map": "group.json"
+		"Map": {
+			"value": "group.json",
+			"path": true
+		}
 	},
 	"ConfigRegistry": {
 		"ldapgroups": "MediaWiki\\Extension\\LDAPGroups\\Config::newInstance"
+	},
+	"attributes": {
+		"LDAPProvider": {
+			"DefaultSettings": {
+				"groupsync": {
+					"locally-managed": [],
+					"mapping": []
+				}
+			}
+		}
 	},
 	"load_composer_autoloader" : true,
 	"manifest_version": 2
