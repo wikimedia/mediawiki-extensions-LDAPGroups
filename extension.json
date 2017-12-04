@@ -15,16 +15,8 @@
 			"i18n"
 		]
 	},
-	"callback": "MediaWiki\\Extension\\LDAPGroups\\Setup::onRegistration",
-	"config_prefix": "LDAPGroups",
-	"config": {
-		"Map": {
-			"value": "group.json",
-			"path": true
-		}
-	},
-	"ConfigRegistry": {
-		"ldapgroups": "MediaWiki\\Extension\\LDAPGroups\\Config::newInstance"
+	"Hooks": {
+		"UserLoggedIn": "MediaWiki\\Extension\\LDAPGroups\\Hook\\UserLoggedIn\\SyncUserGroups::callback"
 	},
 	"attributes": {
 		"LDAPProvider": {

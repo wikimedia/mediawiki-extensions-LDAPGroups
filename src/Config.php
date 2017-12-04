@@ -20,19 +20,8 @@
 
 namespace MediaWiki\Extension\LDAPGroups;
 
-class Config extends \GlobalVarConfig {
-
-	const GROUP_MAP_FILE = 'Map';
-
-	public function __construct() {
-		parent::__construct( 'LDAPGroups' );
-	}
-
-	/**
-	 * Factory method for MediaWikiServices
-	 * @return Config
-	 */
-	public static function newInstance() {
-		return new self();
-	}
+class Config {
+	const DOMAINCONFIG_SECTION = 'groupsync';
+	const LOCALLY_MANAGED = 'locally-managed';
+	const MAPPING = 'mapping';
 }
