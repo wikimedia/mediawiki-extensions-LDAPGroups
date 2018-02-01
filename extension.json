@@ -1,7 +1,7 @@
 {
 	"name": "LdapGroups",
 	"version": "0.1.0",
-	"license-name": "GPL-3.0+",
+	"license-name": "GPL-3.0-or-later",
 	"author": [
 		"[http://mwstake.org Mark A. Hershberger]"
 	],
