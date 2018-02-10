@@ -163,13 +163,11 @@ class LdapGroups {
 	 * @throw MWException
 	 */
 	protected function doLDAPSearch( $match ) {
-		wfProfileIn( __METHOD__ );
 		$runTime = -microtime( true );
 		$key = wfMemcKey( 'ldapgroups', $match );
 		$cache = wfGetMainCache();
 		$entry = $cache->get( $key );
 		if ( $entry === false ) {
-			wfProfileIn( __METHOD__ . " - LDAP Search" );
 			if ( !$this->ldap ) {
 				$this->setupConnection();
 			}
@@ -177,18 +175,13 @@ class LdapGroups {
 			$res = ldap_search( $this->ldap, $this->param['basedn'],
 								$match, [ "*" ] );
 			if ( !$res ) {
-				wfProfileOut( __METHOD__ . " - LDAP Search" );
-				wfProfileOut( __METHOD__ );
 				throw new MWException( "Error in LDAP search: " .
 									   ldap_error( $this->ldap ) );
 			}
 
 			$entry = ldap_get_entries( $this->ldap, $res );
 			$cache->set( $key, $entry, 3600 * 24 );
-
-			wfProfileOut( __METHOD__ . " - LDAP Search" );
 		}
-		wfProfileOut( __METHOD__ );
 		$runTime += microtime( true );
 		wfDebugLog(
 			__CLASS__, "Ran LDAP search for '$match' in $runTime seconds.\n"
@@ -213,12 +206,10 @@ class LdapGroups {
 									"=" . $user->getEmail() );
 
 		if ( $entry['count'] === 0 ) {
-			wfProfileOut( __METHOD__ );
 			throw new MWException( "No user found with the ID: " .
 								   $user->getEmail() );
 		}
 		if ( $entry['count'] !== 1 ) {
-			wfProfileOut( __METHOD__ );
 			throw new MWException( "More than one user found " .
 								   "with the ID: $user" );
 		}
