@@ -3,4 +3,3 @@
 This extension provides an way to map group membership information from a directory service (such as LDAP or Active Directory) to MediaWiki gropus using the interface provided by LDAPProvider.
 
 === Configuration ===
-
