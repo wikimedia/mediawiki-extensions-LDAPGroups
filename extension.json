@@ -20,6 +20,10 @@
 			"i18n"
 		]
 	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\LDAPGroups\\Tests\\" : "tests/phpunit/",
+		"MediaWiki\\Extension\\LDAPGroups\\" : "src/"
+	},
 	"Hooks": {
 		"UserLoggedIn": "MediaWiki\\Extension\\LDAPGroups\\Hook\\UserLoggedIn\\SyncUserGroups::callback"
 	},
