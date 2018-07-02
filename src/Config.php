@@ -26,6 +26,7 @@ class Config extends GlobalVarConfig {
 	const DOMAINCONFIG_SECTION = 'groupsync';
 	const LOCALLY_MANAGED = 'locally-managed';
 	const MAPPING = 'mapping';
+	const GROUP_TYPE = 'grouplookup';
 
 	public function __construct() {
 		parent::__construct( 'LDAPGroups' );
