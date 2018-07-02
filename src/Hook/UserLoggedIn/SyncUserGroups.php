@@ -37,12 +37,14 @@ class SyncUserGroups extends UserLoggedIn {
 	 * for this user.
 	 */
 	protected function doProcess() {
-		$ldapGroupMembership = $this->getMappedGroups();
-		$current = $this->user->getGroups();
-		$this->addManagedGroups( array_diff( $ldapGroupMembership, $current ) );
+		$currentLDAPGroups = $this->filterNonLDAPGroups( $this->user->getGroups() );
+		$ldapGroupMembership = $this->mapGroupsFromLDAP( $this->user->getName() );
 
-		$ldapGroupRemoval = array_diff( $this->getGroupsUnderManagement(), $ldapGroupMembership );
-		$this->removeManagedGroups( array_intersect( $ldapGroupRemoval, $current ) );
+		$groupsToRemove = array_diff( $currentLDAPGroups, $ldapGroupMembership );
+		$groupsToAdd = array_diff( $ldapGroupMembership, $currentLDAPGroups );
+
+		$this->addManagedGroups( $groupsToAdd );
+		$this->removeManagedGroups( $groupsToRemove );
 	}
 
 	/**
@@ -50,7 +52,7 @@ class SyncUserGroups extends UserLoggedIn {
 	 * @param string $domain
 	 * @return array
 	 */
-	public function getGroupsUnderManagement() {
+	public function getGroupConfig() {
 		if ( !$this->domain && !$this->findDomainForUser() ) {
 			throw new MWException( "No Domain found" );
 		}
@@ -58,15 +60,46 @@ class SyncUserGroups extends UserLoggedIn {
 		if ( !isset( $this->map[$this->domain] ) ) {
 			$groupMap = Config::newInstance()->get( "GroupRegistry" );
 			if ( !isset( $groupMap[$this->domain] ) ) {
-				$this->map[$this->domain] = DomainConfigFactory::getInstance()->factory(
+				$this->map[$this->domain]
+					= DomainConfigFactory::getInstance()->factory(
 					$this->domain,
-					Config::DOMAINCONFIG_SECTION
+					$this->getDomainConfigSection()
 				);
 			} else {
 				$this->map[$this->domain] = $groupMap[$this->domain];
 			}
 		}
+
 		return $this->map[$this->domain];
+	}
+
+	/**
+	 * Given a list of groups return those that are managed in LDAP
+	 *
+	 * @param array $groups MediaWiki Groups
+	 * @return array
+	 */
+	public function filterNonLDAPGroups( array $groups ) {
+		$mapping = $this->getGroupConfig()->get( Config::MAPPING );
+		$ret = [];
+		foreach ( $groups as $group ) {
+			if ( isset( $mapping[$group] ) ) {
+				$ret[] = $group;
+			}
+		}
+		return $ret;
+	}
+
+	public function mapGroupsFromLDAP( $username ) {
+		$mapping = array_flip( $this->getGroupConfig()->get( Config::MAPPING ) );
+		$groupList = $this->ldapClient->getUserGroups( $this->getGroupConfig(), $username );
+		return array_map(
+			function( $dn ) use ($mapping) {
+				if ( isset( $mapping[$dn] ) ) {
+					return $mapping[$dn];
+				}
+			}, $groupList->getFullDNs()
+		);
 	}
 
 	/**
@@ -87,16 +120,12 @@ class SyncUserGroups extends UserLoggedIn {
 		return $group;
 	}
 
-	private function getMappedGroups() {
-		$this->ldapClient->getUserGroups( $this->user->getName() );
-	}
-
 	private function addManagedGroups( array $groups ) {
 		foreach ( $groups as $group ) {
 			if ( !$this->user->addGroup( $group ) ) {
 				wfDebugLog(
-					"LDAPGroups addGroup", "Problem adding user '{$this->user}' "
-					. "to the group '$group'."
+					"LDAPGroups addGroup",
+					"Problem adding user '{$this->user}' to the group '$group'."
 				);
 			}
 		}
@@ -106,8 +135,9 @@ class SyncUserGroups extends UserLoggedIn {
 		foreach ( $groups as $group ) {
 			if ( !$this->user->removeGroup( $group ) ) {
 				wfDebugLog(
-					"LDAPGroups removeGroup", "Problem removing user '{$this->user}' "
-					. "from the group '$group'."
+					"LDAPGroups removeGroup",
+					"Problem removing user '{$this->user}' from the group "
+					. "'$group'."
 				);
 			}
 		}
