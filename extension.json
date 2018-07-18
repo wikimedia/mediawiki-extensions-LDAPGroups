@@ -20,31 +20,19 @@
 			"i18n"
 		]
 	},
-	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\LDAPGroups\\Tests\\" : "tests/phpunit/",
-		"MediaWiki\\Extension\\LDAPGroups\\" : "src/"
-	},
 	"Hooks": {
 		"UserLoggedIn": "MediaWiki\\Extension\\LDAPGroups\\Hook\\UserLoggedIn\\SyncUserGroups::callback"
 	},
-	"config_prefix": "LDAPGroups",
 	"config": {
-		"GroupRegistry": {
-			"value": [],
-			"description": "Allows registration of custom group mappings",
-			"descriptionmsg": "ldapgroups-config-registry"
-		}
+		"_prefix": "LDAPGroups",
+		"GroupRegistry": []
 	},
-	"attributes": {
-		"LDAPProvider": {
-			"DefaultSettings": {
-				"groupsync": {
-					"locally-managed": [],
-					"mapping": []
-				}
-			}
+	"LDAPProviderDefaultSettings": {
+		"groupsync": {
+			"locally-managed": [],
+			"mapping": []
 		}
 	},
 	"load_composer_autoloader" : true,
-	"manifest_version": 2
+	"manifest_version": 1
 }
