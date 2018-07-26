@@ -98,7 +98,7 @@ class SyncUserGroups extends UserLoggedIn {
 				if ( isset( $mapping[$dn] ) ) {
 					return $mapping[$dn];
 				}
-			}, $groupList->getFullDNs()
+			}, $groupList["memberof"]
 		);
 	}
 
