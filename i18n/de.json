@@ -4,5 +4,6 @@
 			"Metalhead64"
 		]
 	},
-	"ldapgroups-desc": "Verwaltet die MediaWiki-Gruppenmitgliedschaft in LDAP"
+	"ldapgroups-desc": "Verwaltet die MediaWiki-Gruppenmitgliedschaft in LDAP",
+	"right-manageldapgroups": "Gruppenmitgliedschaft in LDAP verwalten"
 }
