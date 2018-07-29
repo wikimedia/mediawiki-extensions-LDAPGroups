@@ -1,4 +1,10 @@
 {
-	"@metadata": [],
-	"ldapgroups-desc": "{{desc|name=LdapGroups|url=https://www.mediawiki.org/wiki/Extension:LdapGroups}}"
+	"@metadata": {
+		"authors": [
+			"Mark A. Hershberger",
+			"MarcoAurelio"
+		]
+	},
+	"ldapgroups-desc": "{{desc|name=LdapGroups|url=https://www.mediawiki.org/wiki/Extension:LdapGroups}}",
+	"right-manageldapgroups": "{{doc-right|manageldapgroups}}"
 }

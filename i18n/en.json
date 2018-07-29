@@ -1,7 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Mark A. Hershberger",
+			"MarcoAurelio"
 		]
 	},
-	"ldapgroups-desc": "Manage MediaWiki group membership in LDAP"
+	"ldapgroups-desc": "Manage MediaWiki group membership in LDAP",
+	"right-manageldapgroups": "Manage group membership in LDAP"
 }
