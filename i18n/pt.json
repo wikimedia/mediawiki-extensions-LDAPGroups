@@ -4,5 +4,6 @@
 			"Hamilton Abreu"
 		]
 	},
-	"ldapgroups-desc": "Administrar membros dos grupos do MediaWiki em LDAP"
+	"ldapgroups-desc": "Administrar membros dos grupos do MediaWiki em LDAP",
+	"right-manageldapgroups": "Administrar membros dos grupos em LDAP"
 }

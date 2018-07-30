@@ -4,5 +4,6 @@
 			"Kly"
 		]
 	},
-	"ldapgroups-desc": "管理在 LDAP 的 MediaWiki 群組成員"
+	"ldapgroups-desc": "管理在 LDAP 的 MediaWiki 群組成員",
+	"right-manageldapgroups": "管理在 LDAP 的群組成員"
 }

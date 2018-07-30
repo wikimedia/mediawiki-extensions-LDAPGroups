@@ -4,5 +4,6 @@
 			"Red Winged Duck"
 		]
 	},
-	"ldapgroups-desc": "Кіраваньне сяброўствам у групе MediaWiki ў LDAP"
+	"ldapgroups-desc": "Кіраваньне сяброўствам у групе MediaWiki ў LDAP",
+	"right-manageldapgroups": "Кіраваньне ўдзелам у групах LDAP"
 }

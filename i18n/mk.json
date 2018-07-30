@@ -4,5 +4,6 @@
 			"Bjankuloski06"
 		]
 	},
-	"ldapgroups-desc": "Управување со групно МедијаВики-членство во LDAP"
+	"ldapgroups-desc": "Управување со групно МедијаВики-членство во LDAP",
+	"right-manageldapgroups": "Раководење со групно членство во LDAP"
 }
