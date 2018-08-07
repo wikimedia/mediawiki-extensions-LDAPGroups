@@ -4,5 +4,6 @@
 			"Jon Harald Søby"
 		]
 	},
-	"ldapgroups-desc": "Behandle MediaWiki-gruppemedlemskap i LDAP"
+	"ldapgroups-desc": "Behandle MediaWiki-gruppemedlemskap i LDAP",
+	"right-manageldapgroups": "Behandle gruppemedlemskap i LDAP"
 }

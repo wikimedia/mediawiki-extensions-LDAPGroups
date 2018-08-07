@@ -4,5 +4,6 @@
 			"Joetaras"
 		]
 	},
-	"ldapgroups-desc": "Gestisce le gruppe de membre de MediaUicchi cu LDAP"
+	"ldapgroups-desc": "Gestisce le gruppe de membre de MediaUicchi cu LDAP",
+	"right-manageldapgroups": "Gestisce le membre d'u gruppe cu LDAP"
 }
