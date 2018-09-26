@@ -28,8 +28,11 @@ use MWException;
 
 class SyncUserGroups extends UserLoggedIn {
 
+	/**
+	 *
+	 * @var array
+	 */
 	private $map;
-	private $groupMap;
 
 	/**
 	 * This is called by parent::process(). We use the connection
@@ -37,6 +40,10 @@ class SyncUserGroups extends UserLoggedIn {
 	 * for this user.
 	 */
 	protected function doProcess() {
+
+		$process = new GroupSyncProcess( $this->user );
+		$process->run();
+
 		$currentLDAPGroups = $this->filterNonLDAPGroups( $this->user->getGroups() );
 		$ldapGroupMembership = $this->mapGroupsFromLDAP( $this->user->getName() );
 
@@ -52,7 +59,7 @@ class SyncUserGroups extends UserLoggedIn {
 	 * @param string $domain
 	 * @return array
 	 */
-	public function getGroupConfig() {
+	private function getGroupConfig() {
 		if ( !$this->domain && !$this->findDomainForUser() ) {
 			throw new MWException( "No Domain found" );
 		}
@@ -79,7 +86,7 @@ class SyncUserGroups extends UserLoggedIn {
 	 * @param array $groups MediaWiki Groups
 	 * @return array
 	 */
-	public function filterNonLDAPGroups( array $groups ) {
+	private function filterNonLDAPGroups( array $groups ) {
 		$mapping = $this->getGroupConfig()->get( Config::MAPPING );
 		$ret = [];
 		foreach ( $groups as $group ) {
@@ -90,7 +97,7 @@ class SyncUserGroups extends UserLoggedIn {
 		return $ret;
 	}
 
-	public function mapGroupsFromLDAP( $username ) {
+	private function mapGroupsFromLDAP( $username ) {
 		$mapping = array_flip( $this->getGroupConfig()->get( Config::MAPPING ) );
 		$groupList = $this->ldapClient->getUserGroups( $this->getGroupConfig(), $username );
 		return array_map(
@@ -107,7 +114,7 @@ class SyncUserGroups extends UserLoggedIn {
 	 * @param string $group LDAP group
 	 * @return string
 	 */
-	public function getGroupForLDAPdn( $group ) {
+	private function getGroupForLDAPdn( $group ) {
 		return $group;
 	}
 
@@ -116,7 +123,7 @@ class SyncUserGroups extends UserLoggedIn {
 	 * @param string $group MediaWiki group
 	 * @return string
 	 */
-	public function getLDAPdnForGroup( $group ) {
+	private function getLDAPdnForGroup( $group ) {
 		return $group;
 	}
 
