@@ -46,17 +46,10 @@ class GroupSyncProcess {
 	public function run() {
 		$this->status = \Status::newGood();
 		try {
-			$this->prepareRequest();
+			$groups = $this->client->getUserGroups( $this->user->getName() );
+			$syncMechanism = $this->makeSyncMechanism();
+			$this->status = $syncMechanism->sync();
 
-			if( $this->status->isGood() ) {
-				$this->executeRequest();
-			}
-			if( $this->status->isGood() ) {
-				$this->initializeSyncMechanism();
-			}
-			if( $this->status->isGood() ) {
-				$this->syncGroups();
-			}
 		} catch ( \Exception $ex ) {
 			$this->status = \Status::newFatal( $ex->getMessage() );
 		}
@@ -64,26 +57,9 @@ class GroupSyncProcess {
 		return $this->status;
 	}
 
-	/**
-	 *
-	 * @var type 
-	 */
-	private $groupRequest = null;
-
-	private function prepareRequest() {
-		$this->groupRequest = $
-	}
-
-	private function executeRequest() {
-
-	}
-
-	private function initializeSyncMechanism() {
-
-	}
-
-	private function syncGroups() {
-
+	private function makeSyncMechanism() {
+		$factoryCallback = $this->config->get( 'mechanism' );
+		return $factoryCallback();
 	}
 
 }

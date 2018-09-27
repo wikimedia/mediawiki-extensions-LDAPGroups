@@ -2,17 +2,15 @@
 
 namespace MediaWiki\Extension\LDAPGroups\SyncMechanism;
 
-use MediaWiki\Extension\LDAPGroups\ISyncMechanism;
-
-class AllGroups implements ISyncMechanism {
+class AllGroups extends Base {
 
 	/**
-	 *
 	 * @param \User $user
+	 * @param \MediaWiki\Extension\LDAPProvider\GroupList $groupList
+	 * @param \Config $config
 	 * @return \Status
 	 */
-	public function sync( $user ) {
-
+	public function sync( $user, $groupList, $config ) {
+		
 	}
-
 }
