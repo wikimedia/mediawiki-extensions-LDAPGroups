@@ -18,6 +18,12 @@ class GroupSyncProcess {
 
 	/**
 	 *
+	 * @var \MediaWiki\Extension\LDAPProvider\Client
+	 */
+	protected $client = null;
+
+	/**
+	 *
 	 * @var \Status
 	 */
 	protected $status = null;
@@ -25,11 +31,13 @@ class GroupSyncProcess {
 	/**
 	 *
 	 * @param \User $user
-	 * @param \Config $confit
+	 * @param \Config $config
+	 * @param \MediaWiki\Extension\LDAPProvider\Client $client
 	 */
-	public function __construct( $user, $config ) {
+	public function __construct( $user, $config, $client ) {
 		$this->user = $user;
 		$this->config = $config;
+		$this->client = $client;
 	}
 
 	/**
@@ -39,9 +47,16 @@ class GroupSyncProcess {
 		$this->status = \Status::newGood();
 		try {
 			$this->prepareRequest();
-			$this->executeRequest();
-			$this->initializeSyncMechanism();
-			$this->syncGroups();
+
+			if( $this->status->isGood() ) {
+				$this->executeRequest();
+			}
+			if( $this->status->isGood() ) {
+				$this->initializeSyncMechanism();
+			}
+			if( $this->status->isGood() ) {
+				$this->syncGroups();
+			}
 		} catch ( \Exception $ex ) {
 			$this->status = \Status::newFatal( $ex->getMessage() );
 		}
@@ -49,8 +64,14 @@ class GroupSyncProcess {
 		return $this->status;
 	}
 
-	private function prepareRequest() {
+	/**
+	 *
+	 * @var type 
+	 */
+	private $groupRequest = null;
 
+	private function prepareRequest() {
+		$this->groupRequest = $
 	}
 
 	private function executeRequest() {

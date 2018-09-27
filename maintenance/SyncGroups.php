@@ -57,15 +57,15 @@ class SyncGroups extends Maintenance {
 
 		$client = ClientFactory::getInstance()->getForDomain( $domain );
 		$config = DomainConfigFactory::getInstance()->factory( $domain, 'groupsync' );
-
 		$process = new GroupSyncProcess( $user, $config, $client );
 		$process->run();
 
-		$this->output( "\nNew groups:\n");
+		$this->output( "\nNew groups:\n" );
 		$newGroupMemberships = $user->getGroupMemberships();
 		foreach( $newGroupMemberships as $newGroupMembership ) {
 			$this->output( "* {$newGroupMembership->getGroup()}\n" );
 		}
+		$this->output( "\n\n" );
 	}
 
 }
