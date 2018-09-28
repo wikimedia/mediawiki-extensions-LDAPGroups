@@ -22,134 +22,29 @@
 namespace MediaWiki\Extension\LDAPGroups\Hook\UserLoggedIn;
 
 use MediaWiki\Extension\LDAPGroups\Config;
-use MediaWiki\Extension\LDAPProvider\DomainConfigFactory;
 use MediaWiki\Extension\LDAPProvider\Hook\UserLoggedIn;
-use MWException;
 
 class SyncUserGroups extends UserLoggedIn {
-
-	/**
-	 *
-	 * @var array
-	 */
-	private $map;
 
 	/**
 	 * This is called by parent::process(). We use the connection
 	 * established by the parent class that is specific to the domain
 	 * for this user.
+	 *
+	 * @return bool
 	 */
 	protected function doProcess() {
 
-		$process = new GroupSyncProcess( $this->user );
+		$process = new GroupSyncProcess( $this->user, $this->config, $this->ldapClient );
 		$process->run();
 
-		$currentLDAPGroups = $this->filterNonLDAPGroups( $this->user->getGroups() );
-		$ldapGroupMembership = $this->mapGroupsFromLDAP( $this->user->getName() );
-
-		$groupsToRemove = array_diff( $currentLDAPGroups, $ldapGroupMembership );
-		$groupsToAdd = array_diff( $ldapGroupMembership, $currentLDAPGroups );
-
-		$this->addManagedGroups( $groupsToAdd );
-		$this->removeManagedGroups( $groupsToRemove );
+		return true;
 	}
 
 	/**
-	 * Get the list of Groups that are mananaged by LDAPGroups
-	 * @param string $domain
-	 * @return array
-	 */
-	private function getGroupConfig() {
-		if ( !$this->domain && !$this->findDomainForUser() ) {
-			throw new MWException( "No Domain found" );
-		}
-
-		if ( !isset( $this->map[$this->domain] ) ) {
-			$groupMap = Config::newInstance()->get( "GroupRegistry" );
-			if ( !isset( $groupMap[$this->domain] ) ) {
-				$this->map[$this->domain]
-					= DomainConfigFactory::getInstance()->factory(
-					$this->domain,
-					$this->getDomainConfigSection()
-				);
-			} else {
-				$this->map[$this->domain] = $groupMap[$this->domain];
-			}
-		}
-
-		return $this->map[$this->domain];
-	}
-
-	/**
-	 * Given a list of groups return those that are managed in LDAP
 	 *
-	 * @param array $groups MediaWiki Groups
-	 * @return array
-	 */
-	private function filterNonLDAPGroups( array $groups ) {
-		$mapping = $this->getGroupConfig()->get( Config::MAPPING );
-		$ret = [];
-		foreach ( $groups as $group ) {
-			if ( isset( $mapping[$group] ) ) {
-				$ret[] = $group;
-			}
-		}
-		return $ret;
-	}
-
-	private function mapGroupsFromLDAP( $username ) {
-		$mapping = array_flip( $this->getGroupConfig()->get( Config::MAPPING ) );
-		$groupList = $this->ldapClient->getUserGroups( $this->getGroupConfig(), $username );
-		return array_map(
-			function( $dn ) use ($mapping) {
-				if ( isset( $mapping[$dn] ) ) {
-					return $mapping[$dn];
-				}
-			}, $groupList->getFullDNs()
-		);
-	}
-
-	/**
-	 * Tell us if a memberOf attribute matches a MW group
-	 * @param string $group LDAP group
 	 * @return string
 	 */
-	private function getGroupForLDAPdn( $group ) {
-		return $group;
-	}
-
-	/**
-	 * Get the dn that they should be a memberOf entry
-	 * @param string $group MediaWiki group
-	 * @return string
-	 */
-	private function getLDAPdnForGroup( $group ) {
-		return $group;
-	}
-
-	private function addManagedGroups( array $groups ) {
-		foreach ( $groups as $group ) {
-			if ( !$this->user->addGroup( $group ) ) {
-				wfDebugLog(
-					"LDAPGroups addGroup",
-					"Problem adding user '{$this->user}' to the group '$group'."
-				);
-			}
-		}
-	}
-
-	private function removeManagedGroups( array $groups ) {
-		foreach ( $groups as $group ) {
-			if ( !$this->user->removeGroup( $group ) ) {
-				wfDebugLog(
-					"LDAPGroups removeGroup",
-					"Problem removing user '{$this->user}' from the group "
-					. "'$group'."
-				);
-			}
-		}
-	}
-
 	protected function getDomainConfigSection() {
 		return Config::DOMAINCONFIG_SECTION;
 	}

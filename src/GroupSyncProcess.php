@@ -48,8 +48,7 @@ class GroupSyncProcess {
 		try {
 			$groups = $this->client->getUserGroups( $this->user->getName() );
 			$syncMechanism = $this->makeSyncMechanism();
-			$this->status = $syncMechanism->sync();
-
+			$this->status = $syncMechanism->sync( $this->user, $groups, $this->config );
 		} catch ( \Exception $ex ) {
 			$this->status = \Status::newFatal( $ex->getMessage() );
 		}
@@ -57,6 +56,10 @@ class GroupSyncProcess {
 		return $this->status;
 	}
 
+	/**
+	 *
+	 * @return ISyncMechanism
+	 */
 	private function makeSyncMechanism() {
 		$factoryCallback = $this->config->get( 'mechanism' );
 		return $factoryCallback();
