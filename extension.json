@@ -39,7 +39,12 @@
 		"LDAPProvider": {
 			"DefaultSettings": {
 				"groupsync": {
+					"mechanism": "MediaWiki\\Extension\\LDAPGroups\\SyncMechanism\\MappedGroups::factory",
+
+					"@locally-managed": "Only evaluated if AllGroups sync is used",
 					"locally-managed": [],
+
+					"@mapping": "Only evaluated if MappedGroups sync is used",
 					"mapping": []
 				}
 			}
