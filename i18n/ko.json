@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong"
+			"Ykhwong",
+			"Revi"
 		]
 	},
-	"ldapgroups-desc": "LDAP으로 미디어위키 그룹 권한 관리"
+	"ldapgroups-desc": "LDAP으로 미디어위키 그룹 권한 관리",
+	"right-manageldapgroups": "LDAP의 사용자 권한 조정"
 }
