@@ -27,6 +27,9 @@ class MappedGroups extends Base {
 		}
 
 		$groupsToRemove = array_diff( $currentLDAPGroups, $ldapGroupMembership );
+		# var_dump( $currentLDAPGroups );
+		# var_dump( $ldapGroupMembership );
+		# var_dump( $groupsToRemove );
 		foreach ( $groupsToRemove as $groupToRemove ) {
 			$this->removeGroup( $groupToRemove );
 		}
@@ -41,7 +44,7 @@ class MappedGroups extends Base {
 	private function filterNonLDAPGroups( array $groups ) {
 		$ret = [];
 		foreach ( $groups as $group ) {
-			if ( isset( $this->map[$group] ) ) {
+			if ( !isset( $this->map[$group] ) ) {
 				$ret[] = $group;
 			}
 		}
@@ -49,12 +52,29 @@ class MappedGroups extends Base {
 	}
 
 	private function mapGroupsFromLDAP() {
-		$allLDAPGroups = $this->groupList->getFullDNs();
-		$dnToWikiMap = array_flip( $this->map );
+		$allLDAPGroups = array_map( 'strtolower', $this->groupList->getFullDNs() );
+		$dnToWikiMap = [];
+
+		foreach ( $this->map as $localGroup => $fullDNs ) {
+			if ( !is_array( $fullDNs ) ) {
+				$fullDNs = [ $fullDNs ];
+			}
+			foreach ( $fullDNs as $fullDN ) {
+				$normalizedFullDN = strtolower( $fullDN );
+				if ( !isset( $dnToWikiMap[$normalizedFullDN] ) ) {
+					$dnToWikiMap[$normalizedFullDN] = [];
+				}
+				$dnToWikiMap[$normalizedFullDN] = array_merge(
+					$dnToWikiMap[$normalizedFullDN],
+					[ $localGroup ]
+				);
+			}
+		}
+
 		$ret = [];
 		foreach ( $allLDAPGroups as $dn ) {
 			if ( isset( $dnToWikiMap[$dn] ) ) {
-				$ret[] = $dnToWikiMap[$dn];
+				$ret = array_merge( $ret, $dnToWikiMap[$dn] );
 			}
 		}
 		return $ret;

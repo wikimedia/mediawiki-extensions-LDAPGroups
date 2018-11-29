@@ -32,10 +32,26 @@ abstract class Base implements ISyncMechanism {
 
 	/**
 	 *
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	protected $logger = null;
+
+	/**
+	 *
+	 * @param \Psr\Log\LoggerInterface $logger
+	 */
+	public function __construct( $logger ) {
+		$this->logger = $logger;
+	}
+
+	/**
+	 *
+	 * @param \Config $domainConfig
+	 * @param \Psr\Log\LoggerInterface $logger
 	 * @return ISyncMechanism
 	 */
-	public static function factory() {
-		return new static();
+	public static function factory( $domainConfig, $logger ) {
+		return new static( $logger );
 	}
 
 	/**
@@ -68,10 +84,12 @@ abstract class Base implements ISyncMechanism {
 	 */
 	protected function addGroup( $group ) {
 		$success = $this->user->addGroup( $group );
+		$this->logger->info(
+			"Adding '$group' to '{$this->user}'."
+		);
 		if ( !$success ) {
-			wfDebugLog(
-				"LDAPGroups addGroup",
-				"Problem adding user '{$this->user}' to the group '$group'."
+			$this->logger->error(
+					"Problem adding user '{$this->user}' to the group '$group'."
 			);
 		}
 	}
@@ -82,9 +100,11 @@ abstract class Base implements ISyncMechanism {
 	 */
 	protected function removeGroup( $group ) {
 		$success = $this->user->removeGroup( $group );
+		$this->logger->info(
+			"Removing '$group' from '{$this->user}'."
+		);
 		if ( !$success ) {
-			wfDebugLog(
-				"LDAPGroups removeGroup",
+			$this->logger->error(
 				"Problem removing user '{$this->user}' from the group '$group'."
 			);
 		}

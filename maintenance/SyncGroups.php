@@ -7,7 +7,7 @@ use MediaWiki\Extension\LDAPProvider\ClientFactory;
 use MediaWiki\Extension\LDAPProvider\DomainConfigFactory;
 use MediaWiki\Extension\LDAPProvider\UserDomainStore;
 use MediaWiki\Extension\LDAPGroups\GroupSyncProcess;
-use MediaWiki\MediaWikiServices;
+use GlobalVarConfig;
 
 $maintPath = ( getenv( 'MW_INSTALL_PATH' ) !== false
 			  ? getenv( 'MW_INSTALL_PATH' )
@@ -35,37 +35,49 @@ class SyncGroups extends Maintenance {
 	public function execute() {
 		$username = $this->getOption( 'user' );
 		$user = \User::newFromName( $username );
-		if( $user->getId() === 0 ) {
+		if ( $user->getId() === 0 ) {
 			$this->output( "User '$username' does not exist!\n" );
 			return;
 		}
 
 		$this->output( "Syncing groups for '{$user->getName()}' (ID:{$user->getId()}) ...\n" );
-		$this->output( "\nOld groups:\n");
+		$this->output( "\nOld groups:\n" );
 		$oldGroupMemberships = $user->getGroupMemberships();
-		foreach( $oldGroupMemberships as $oldGroupMembership ) {
+		foreach ( $oldGroupMemberships as $oldGroupMembership ) {
 			$this->output( "* {$oldGroupMembership->getGroup()}\n" );
 		}
 
 		$loadBalancer = \MediaWiki\MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$domainStore = new UserDomainStore( $loadBalancer );
 		$domain = $domainStore->getDomainForUser( $user );
-		if( $domain === null ) {
+		if ( $domain === null ) {
 			$this->error( "ERROR: Could not find domain for {$user->getName()}!\n" );
 			return;
 		}
 
 		$client = ClientFactory::getInstance()->getForDomain( $domain );
-		$config = DomainConfigFactory::getInstance()->factory( $domain, 'groupsync' );
-		$process = new GroupSyncProcess( $user, $config, $client );
+		$domainConfig = DomainConfigFactory::getInstance()->factory( $domain, 'groupsync' );
+		$callbackRegistry = $this->getConfig()->get( 'LDAPGroupsSyncMechanismRegistry' );
+		$process = new GroupSyncProcess( $user, $domainConfig, $client, $callbackRegistry );
 		$process->run();
 
 		$this->output( "\nNew groups:\n" );
 		$newGroupMemberships = $user->getGroupMemberships();
-		foreach( $newGroupMemberships as $newGroupMembership ) {
+		foreach ( $newGroupMemberships as $newGroupMembership ) {
 			$this->output( "* {$newGroupMembership->getGroup()}\n" );
 		}
 		$this->output( "\n\n" );
+	}
+
+	/**
+	 * @return \Config
+	 */
+	public function getConfig() {
+		if ( $this->config === null ) {
+			$this->config = new GlobalVarConfig();
+		}
+
+		return $this->config;
 	}
 
 }

@@ -2,6 +2,12 @@
 
 namespace MediaWiki\Extension\LDAPGroups;
 
+use MediaWiki\Extension\LDAPProvider\Client;
+use Status;
+use Exception;
+use MWException;
+use MediaWiki\Logger\LoggerFactory;
+
 class GroupSyncProcess {
 
 	/**
@@ -14,55 +20,82 @@ class GroupSyncProcess {
 	 *
 	 * @var \Config
 	 */
-	protected $config = null;
+	protected $domainConfig = null;
 
 	/**
 	 *
-	 * @var \MediaWiki\Extension\LDAPProvider\Client
+	 * @var Client
 	 */
 	protected $client = null;
 
 	/**
 	 *
-	 * @var \Status
+	 * @var array
+	 */
+	protected $callbackRegistry = [];
+
+	/**
+	 *
+	 * @var Status
 	 */
 	protected $status = null;
 
 	/**
 	 *
 	 * @param \User $user
-	 * @param \Config $config
+	 * @param \Config $domainConfig
 	 * @param \MediaWiki\Extension\LDAPProvider\Client $client
+	 * @param array $callbackRegistry
 	 */
-	public function __construct( $user, $config, $client ) {
+	public function __construct( $user, $domainConfig, $client, $callbackRegistry ) {
 		$this->user = $user;
-		$this->config = $config;
+		$this->domainConfig = $domainConfig;
 		$this->client = $client;
+		$this->callbackRegistry = $callbackRegistry;
 	}
 
 	/**
-	 * @return \Status
+	 * @return Status
 	 */
 	public function run() {
-		$this->status = \Status::newGood();
+		$this->status = Status::newGood();
 		try {
 			$groups = $this->client->getUserGroups( $this->user->getName() );
 			$syncMechanism = $this->makeSyncMechanism();
-			$this->status = $syncMechanism->sync( $this->user, $groups, $this->config );
-		} catch ( \Exception $ex ) {
-			$this->status = \Status::newFatal( $ex->getMessage() );
+			$this->status = $syncMechanism->sync( $this->user, $groups, $this->domainConfig );
+		} catch ( Exception $ex ) {
+			$this->status = Status::newFatal( $ex->getMessage() );
 		}
 
 		return $this->status;
 	}
 
-	/**
-	 *
-	 * @return ISyncMechanism
-	 */
-	private function makeSyncMechanism() {
-		$factoryCallback = $this->config->get( 'mechanism' );
-		return $factoryCallback();
+		/**
+	  *
+	  * @return ISyncMechanism
+	  * @throws MWException
+	  */
+	protected function makeSyncMechanism() {
+		$syncMechanismKey = $this->domainConfig->get( 'mechanism' );
+		// B\C;
+		$callback = $syncMechanismKey;
+		if ( isset( $this->callbackRegistry[$syncMechanismKey] ) ) {
+			$callback = $this->callbackRegistry[$syncMechanismKey];
+		}
+
+		if ( !is_callable( $callback ) ) {
+			throw new MWException( "Configured callback for '$syncMechanismKey' is invalid!" );
+		}
+
+		$logger = LoggerFactory::getInstance( 'LDAPGroups' );
+		$syncMechanism = call_user_func_array( $callback, [ $this->domainConfig, $logger ] );
+
+		if ( $syncMechanism instanceof ISyncMechanism === false ) {
+			throw new MWException( "Configured callback for '$syncMechanismKey' did not return an"
+				. " ISyncMechanism object!" );
+		}
+
+		return $syncMechanism;
 	}
 
 }
