@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Facenapalm"
+			"Facenapalm",
+			"Vlad5250"
 		]
 	},
-	"ldapgroups-desc": "Управление участием в группах MediaWiki в LDAP"
+	"ldapgroups-desc": "Управление участием в группах MediaWiki в LDAP",
+	"right-manageldapgroups": "Управление членством в группах в LDAP"
 }
