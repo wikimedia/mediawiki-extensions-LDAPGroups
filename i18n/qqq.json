@@ -6,5 +6,6 @@
 		]
 	},
 	"ldapgroups-desc": "{{desc|name=LdapGroups|url=https://www.mediawiki.org/wiki/Extension:LdapGroups}}",
+	"action-manageldapgroups": "{{doc-action|manageldapgroups}}",
 	"right-manageldapgroups": "{{doc-right|manageldapgroups}}"
 }
