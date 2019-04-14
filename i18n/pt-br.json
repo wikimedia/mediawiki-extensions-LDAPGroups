@@ -6,5 +6,6 @@
 		]
 	},
 	"ldapgroups-desc": "Gerenciar os membros dos grupos do MediaWiki em LDAP",
+	"action-manageldapgroups": "gerenciar a participação do grupo no LDAP",
 	"right-manageldapgroups": "Administrar membros dos grupos em LDAP"
 }

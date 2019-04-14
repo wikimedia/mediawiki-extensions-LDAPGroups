@@ -5,5 +5,6 @@
 		]
 	},
 	"ldapgroups-desc": "Управување со групно МедијаВики-членство во LDAP",
+	"action-manageldapgroups": "раководење со групно членство во LDAP",
 	"right-manageldapgroups": "Раководење со групно членство во LDAP"
 }
