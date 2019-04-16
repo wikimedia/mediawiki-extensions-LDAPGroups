@@ -1,6 +1,6 @@
 {
 	"name": "LDAPGroups",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": [
 		"Cindy Cicalese",
 		"[http://mediawiki.org/wiki/User:MarkAHershberger Mark A. Hershberger]",
@@ -12,7 +12,7 @@
 	"type": "other",
 	"requires": {
 		"extensions": {
-			"LDAPProvider": "1.*"
+			"LDAPProvider": "1.0.1"
 		}
 	},
 	"AutoloadNamespaces": {
@@ -25,7 +25,7 @@
 		]
 	},
 	"Hooks": {
-		"UserLoggedIn": "MediaWiki\\Extension\\LDAPGroups\\Hook\\UserLoggedIn\\SyncUserGroups::callback"
+		"UserLoadAfterLoadFromSession": "MediaWiki\\Extension\\LDAPGroups\\Hook\\UserLoadAfterLoadFromSession\\SyncUserGroupsAfterLoadSession::callback"
 	},
 	"config_prefix": "LDAPGroups",
 	"config": {
