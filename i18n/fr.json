@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Thibaut120094",
-			"Gomoko"
+			"Gomoko",
+			"Wladek92"
 		]
 	},
 	"ldapgroups-desc": "Gérer l'appartenance au groupe MediaWiki dans LDAP",
-	"action-manageldapgroups": "gérer l’appartenance au groupe dans le LDAP",
+	"action-manageldapgroups": "gérer l’appartenance au groupe par LDAP",
 	"right-manageldapgroups": "Gérer l’appartenance au groupe dans LDAP"
 }
