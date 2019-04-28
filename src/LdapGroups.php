@@ -1,5 +1,5 @@
-<?php
-
+<?php # -*- tab-width: 4; indent-tabs-mode: t -*-
+# vi: tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 /**
  * Extension for syncing MediaWiki groups with a directory server's groups.
  *

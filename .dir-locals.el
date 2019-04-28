@@ -1,6 +1,5 @@
 ((nil . ((mode . flycheck)
 		 (mode . company)
-		 (mode . edep)
 		 (mode . subword)
 		 (tab-width . 4)
 		 (c-basic-offset . 4)
