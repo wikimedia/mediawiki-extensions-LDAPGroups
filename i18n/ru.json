@@ -6,5 +6,6 @@
 		]
 	},
 	"ldapgroups-desc": "Управление участием в группах MediaWiki в LDAP",
+	"action-manageldapgroups": "управление участием в группах в LDAP",
 	"right-manageldapgroups": "Управление членством в группах в LDAP"
 }
