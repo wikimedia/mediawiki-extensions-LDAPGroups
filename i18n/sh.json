@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"ldapgroups-desc": "Upravljanje grupnim MediaWiki-članstvom u LDAP-u",
+	"action-manageldapgroups": "upravljanje grupnim članstvom u LDAP-u",
+	"right-manageldapgroups": "Upravljanje grupnim članstvom u LDAP-u"
+}
