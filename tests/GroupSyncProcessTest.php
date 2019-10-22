@@ -12,7 +12,7 @@ class GroupSyncProcessTest extends MediaWikiTestCase {
 	* @covers MediaWiki\Extension\LDAPGroups\GroupSyncProcess::__construct
 	*/
 	public function testInstance() {
-		$user = $this->getMock( 'User' );
+		$user = $this->createMock( User::class );
 		$domainConfig = new HashConfig( [] );
 		$builder = $this->getMockBuilder( 'MediaWiki\\Extension\\LDAPProvider\\Client' );
 		$builder->disableOriginalConstructor();

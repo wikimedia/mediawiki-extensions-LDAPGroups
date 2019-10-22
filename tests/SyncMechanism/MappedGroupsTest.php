@@ -7,6 +7,7 @@ use MediaWiki\Extension\LDAPGroups\SyncMechanism\MappedGroups;
 use MediaWiki\Extension\LDAPProvider\GroupList;
 use TestUserRegistry;
 use HashConfig;
+use Psr\Log\NullLogger;
 
 class MappedGroupsTest extends MediaWikiTestCase {
 
@@ -15,7 +16,7 @@ class MappedGroupsTest extends MediaWikiTestCase {
 	*/
 	public function testFactory() {
 		$domainConfig = new \HashConfig( [] );
-		$logger = $this->getMock( 'Psr\\Log\\LoggerInterface' );
+		$logger = new NullLogger;
 		$syncMechanism = MappedGroups::factory( $domainConfig, $logger );
 
 		$this->assertInstanceOf(
@@ -40,7 +41,7 @@ class MappedGroupsTest extends MediaWikiTestCase {
 		$config = new HashConfig( [
 			'mapping' => $mapping
 		] );
-		$logger = $this->getMock( 'Psr\\Log\\LoggerInterface' );
+		$logger = new NullLogger;
 
 		$syncMechanism = new MappedGroups( $logger );
 		$syncMechanism->sync( $user, $groupList, $config );
