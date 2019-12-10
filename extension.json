@@ -1,6 +1,6 @@
 {
 	"name": "LDAPGroups",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"author": [
 		"Cindy Cicalese",
 		"[https://mediawiki.org/wiki/User:MarkAHershberger Mark A. Hershberger]",
@@ -44,7 +44,7 @@
 					"mechanism": "mappedgroups",
 
 					"@locally-managed": "Only evaluated if 'allgroups' sync is used",
-					"locally-managed": [],
+					"locally-managed": [ "sysop", "bureaucrat", "bot" ],
 
 					"@mapping": "Only evaluated if 'mappedgroups' sync is used",
 					"mapping": []
