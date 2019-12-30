@@ -17,8 +17,10 @@
 		}
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\LDAPGroups\\Tests\\" : "tests/phpunit/",
 		"MediaWiki\\Extension\\LDAPGroups\\" : "src/"
+	},
+	"TestAutoloadNamespaces": {
+		"MediaWiki\\Extension\\LDAPGroups\\Tests\\" : "tests/phpunit/"
 	},
 	"MessagesDirs": {
 		"LDAPGroups": [
