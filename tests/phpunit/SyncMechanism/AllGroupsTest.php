@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\Test\SyncMechanism;
+namespace MediaWiki\Extension\LDAPGroups\Tests\SyncMechanism;
 
 use MediaWikiTestCase;
 use MediaWiki\Extension\LDAPGroups\SyncMechanism\AllGroups;
@@ -20,7 +20,7 @@ class AllGroupsTest extends MediaWikiTestCase {
 		$syncMechanism = AllGroups::factory( $domainConfig, $logger );
 
 		$this->assertInstanceOf(
-			'MediaWiki\\Extension\\LDAPGroups\\ISyncMechanism',
+			\MediaWiki\Extension\LDAPGroups\ISyncMechanism::class,
 			$syncMechanism
 		);
 	}

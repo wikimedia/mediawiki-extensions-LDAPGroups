@@ -1,10 +1,11 @@
 <?php
 
-namespace MediaWiki\Extension\Test\SyncMechanism;
+namespace MediaWiki\Extension\LDAPGroups\Tests;
 
 use MediaWikiTestCase;
 use MediaWiki\Extension\LDAPGroups\GroupSyncProcess;
 use HashConfig;
+use User;
 
 class GroupSyncProcessTest extends MediaWikiTestCase {
 
@@ -14,7 +15,7 @@ class GroupSyncProcessTest extends MediaWikiTestCase {
 	public function testInstance() {
 		$user = $this->createMock( User::class );
 		$domainConfig = new HashConfig( [] );
-		$builder = $this->getMockBuilder( 'MediaWiki\\Extension\\LDAPProvider\\Client' );
+		$builder = $this->getMockBuilder( \MediaWiki\Extension\LDAPProvider\Client::class );
 		$builder->disableOriginalConstructor();
 		$client = $builder->getMock();
 		$callbackRegistry = [];
@@ -27,7 +28,7 @@ class GroupSyncProcessTest extends MediaWikiTestCase {
 		);
 
 		$this->assertInstanceOf(
-			'MediaWiki\\Extension\\LDAPGroups\\GroupSyncProcess',
+			\MediaWiki\Extension\LDAPGroups\GroupSyncProcess::class,
 			$groupSyncProcess
 		);
 	}
