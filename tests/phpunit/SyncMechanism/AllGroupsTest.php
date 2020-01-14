@@ -2,18 +2,18 @@
 
 namespace MediaWiki\Extension\LDAPGroups\Tests\SyncMechanism;
 
-use MediaWikiTestCase;
+use HashConfig;
 use MediaWiki\Extension\LDAPGroups\SyncMechanism\AllGroups;
 use MediaWiki\Extension\LDAPProvider\GroupList;
-use TestUserRegistry;
-use HashConfig;
+use MediaWikiTestCase;
 use Psr\Log\NullLogger;
+use TestUserRegistry;
 
 class AllGroupsTest extends MediaWikiTestCase {
 
 	/**
-	* @covers MediaWiki\Extension\LDAPGroups\SyncMechanism\AllGroups::factory
-	*/
+	 * @covers MediaWiki\Extension\LDAPGroups\SyncMechanism\AllGroups::factory
+	 */
 	public function testFactory() {
 		$domainConfig = new \HashConfig( [] );
 		$logger = new NullLogger;

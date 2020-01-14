@@ -2,16 +2,16 @@
 
 namespace MediaWiki\Extension\LDAPGroups\Tests;
 
-use MediaWikiTestCase;
-use MediaWiki\Extension\LDAPGroups\GroupSyncProcess;
 use HashConfig;
+use MediaWiki\Extension\LDAPGroups\GroupSyncProcess;
+use MediaWikiTestCase;
 use User;
 
 class GroupSyncProcessTest extends MediaWikiTestCase {
 
 	/**
-	* @covers MediaWiki\Extension\LDAPGroups\GroupSyncProcess::__construct
-	*/
+	 * @covers MediaWiki\Extension\LDAPGroups\GroupSyncProcess::__construct
+	 */
 	public function testInstance() {
 		$user = $this->createMock( User::class );
 		$domainConfig = new HashConfig( [] );
