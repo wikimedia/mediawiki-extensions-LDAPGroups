@@ -12,7 +12,7 @@
 	"type": "other",
 	"requires": {
 		"extensions": {
-			"LDAPProvider": "1.0.1"
+			"LDAPProvider": "~1.0"
 		}
 	},
 	"AutoloadNamespaces": {
