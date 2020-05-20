@@ -96,6 +96,18 @@ class MappedGroupsTest extends MediaWikiTestCase {
 				[
 					'scientists'
 				]
+			],
+			'Topic:V3s73k1q4736ov68#1' => [
+				[
+					"sysop" => "cn=wiki,cn=groups,dc=xx,dc=xxx"
+				],
+				[],
+				[
+					"cn=wiki,cn=groups,dc=xx,dc=xxx"
+				],
+				[
+					'sysop'
+				]
 			]
 		];
 	}
