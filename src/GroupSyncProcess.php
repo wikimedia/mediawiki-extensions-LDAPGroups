@@ -70,11 +70,11 @@ class GroupSyncProcess {
 		return $this->status;
 	}
 
-		/**
-	  *
-	  * @return ISyncMechanism
-	  * @throws MWException
-	  */
+	/**
+	 *
+	 * @return ISyncMechanism
+	 * @throws MWException
+	 */
 	protected function makeSyncMechanism() {
 		$syncMechanismKey = $this->domainConfig->get( 'mechanism' );
 		// B\C;
