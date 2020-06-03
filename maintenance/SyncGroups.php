@@ -57,7 +57,8 @@ class SyncGroups extends Maintenance {
 
 		$client = ClientFactory::getInstance()->getForDomain( $domain );
 		$domainConfig = DomainConfigFactory::getInstance()->factory( $domain, 'groupsync' );
-		$callbackRegistry = $this->getConfig()->get( 'LDAPGroupsSyncMechanismRegistry' );
+		$config = new GlobalVarConfig( '' );
+		$callbackRegistry = $config->get( 'LDAPGroupsSyncMechanismRegistry' );
 		$process = new GroupSyncProcess( $user, $domainConfig, $client, $callbackRegistry );
 		$process->run();
 
@@ -68,18 +69,6 @@ class SyncGroups extends Maintenance {
 		}
 		$this->output( "\n\n" );
 	}
-
-	/**
-	 * @return \Config
-	 */
-	public function getConfig() {
-		if ( $this->config === null ) {
-			$this->config = new GlobalVarConfig();
-		}
-
-		return $this->config;
-	}
-
 }
 
 $maintClass = SyncGroups::class;
