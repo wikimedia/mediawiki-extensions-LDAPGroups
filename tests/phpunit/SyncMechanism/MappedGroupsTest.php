@@ -59,41 +59,49 @@ class MappedGroupsTest extends MediaWikiTestCase {
 	}
 
 	public function provideTestSyncData() {
-		$initialGroups = [ 'sysop', 'some_group' ];
-		// https://www.mediawiki.org/w/index.php?title=Extension:LdapGroups&oldid=2595259#Group_mapping
-		$exampleMapping1 = [
-			'AWSUsers' => [
-				'nc=aws-production,ou=security group,o=top'
-			],
-			'NavAndGuidance' => [
-				'cn=g001,OU=Groups,o=top',
-				'cn=g002,OU=Groups,o=top',
-				'cn=g003,OU=Groups,o=top',
-			]
-		];
-		$exampleMapping2 = [
-			'mathematicians' => 'ou=mathematicians,dc=example,dc=com',
-			'scientists' => 'ou=scientists,dc=example,dc=com'
-		];
-
 		return [
-			'set-from-ldap-and-remove-local-1' => [
-				$exampleMapping1,
-				$initialGroups,
+				// https://www.mediawiki.org/w/index.php?title=Extension:LdapGroups&oldid=2595259#Group_mapping
+				'set-from-ldap-and-remove-local-1' => [
+					[
+						'AWSUsers' => [
+							'nc=aws-production,ou=security group,o=top'
+						],
+						'NavAndGuidance' => [
+							'cn=g001,OU=Groups,o=top',
+							'cn=g002,OU=Groups,o=top',
+							'cn=g003,OU=Groups,o=top',
+						]
+					],
+				[
+					'sysop',
+					'some_group',
+					'NavAndGuidance'
+				],
 				[
 					'nc=aws-production,ou=security group,o=top'
 				],
 				[
+					'sysop',
+					'some_group',
 					'AWSUsers'
 				]
 			],
 			'set-from-ldap-and-remove-local-2' => [
-				$exampleMapping2,
-				$initialGroups,
+				[
+					'mathematicians' => 'ou=mathematicians,dc=example,dc=com',
+					'scientists' => 'ou=scientists,dc=example,dc=com'
+				],
+				[
+					'sysop',
+					'some_group',
+					'mathematicians'
+				],
 				[
 					'OU=SCIENTISTS,DC=EXAMPLE,DC=COM'
 				],
 				[
+					'sysop',
+					'some_group',
 					'scientists'
 				]
 			],
@@ -107,6 +115,23 @@ class MappedGroupsTest extends MediaWikiTestCase {
 				],
 				[
 					'sysop'
+				]
+			],
+			'Topic:Vn9jblaqr69fim14#1' => [
+				[
+					"sysop" => "CN=Wiki_Admin,OU=Groups,DC=mydomain,DC=net",
+					"wiki-read" => "CN=Wiki_ReadOnly,OU=Groups,DC=mydomain,DC=net",
+					"wiki-write" => "CN=Wiki_ReadWrite,OU=Groups,DC=mydomain,DC=net"
+				],
+				[
+					'wiki-read',
+					'wiki-write'
+				],
+				[
+					"CN=Wiki_ReadOnly,OU=Groups,DC=mydomain,DC=net"
+				],
+				[
+					'wiki-read'
 				]
 			]
 		];

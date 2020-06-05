@@ -27,9 +27,6 @@ class MappedGroups extends Base {
 		}
 
 		$groupsToRemove = array_diff( $currentLDAPGroups, $ldapGroupMembership );
-		# var_dump( $currentLDAPGroups );
-		# var_dump( $ldapGroupMembership );
-		# var_dump( $groupsToRemove );
 		foreach ( $groupsToRemove as $groupToRemove ) {
 			$this->removeGroup( $groupToRemove );
 		}
@@ -44,7 +41,7 @@ class MappedGroups extends Base {
 	private function filterNonLDAPGroups( array $groups ) {
 		$ret = [];
 		foreach ( $groups as $group ) {
-			if ( !isset( $this->map[$group] ) ) {
+			if ( isset( $this->map[$group] ) ) {
 				$ret[] = $group;
 			}
 		}
