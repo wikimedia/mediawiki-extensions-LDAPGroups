@@ -4,5 +4,5 @@
 			"Kly"
 		]
 	},
-	"ldapgroups-desc": "管理在 LDAP 的 MediaWiki 群組成員"
+	"ldapgroups-desc": "允許使用者群組與 LDAP 資源同步"
 }

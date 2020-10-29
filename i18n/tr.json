@@ -4,5 +4,5 @@
 			"MuratTheTurkish"
 		]
 	},
-	"ldapgroups-desc": "LDAP'de MediaWiki grup üyeliğini yönetin"
+	"ldapgroups-desc": "LDAP kaynağıyla kullanıcı grubu senkronizasyonuna izin verir"
 }
