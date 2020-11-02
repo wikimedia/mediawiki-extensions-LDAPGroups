@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"MuratTheTurkish",
 			"ديفيد"
 		]
 	},
-	"ldapgroups-desc": "إدارة عضوية مجموعة ميدياويكي في LDAP"
+	"ldapgroups-desc": "يسمح بمزامنة مجموعة المستخدمين مع مورد LDAP"
 }
