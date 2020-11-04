@@ -4,5 +4,5 @@
 			"Jon Harald Søby"
 		]
 	},
-	"ldapgroups-desc": "Behandle MediaWiki-gruppemedlemskap i LDAP"
+	"ldapgroups-desc": "Gjør det mulig å synkronisere brukergrupper med en LDAP-ressurs"
 }
