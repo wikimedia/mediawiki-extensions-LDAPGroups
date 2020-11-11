@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"ArenaL5",
 			"Elisardojm"
 		]
 	},
-	"ldapgroups-desc": "Xestionar a pertenza a grupos de MediaWiki en LDAP"
+	"ldapgroups-desc": "Permite a sincronización dos grupos de usuarios cun recurso LDAP"
 }

@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"ArenaL5",
 			"Macofe"
 		]
 	},
-	"ldapgroups-desc": "Gestionar la membresía de grupos de MediaWiki en LDAP"
+	"ldapgroups-desc": "Permite la sincronización de grupos de usuarios con un recurso LDAP"
 }
