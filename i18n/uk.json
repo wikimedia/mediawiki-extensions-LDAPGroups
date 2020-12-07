@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Piramidion"
+			"Piramidion",
+			"Renamerr"
 		]
 	},
-	"ldapgroups-desc": "Керувати членством у групах MediaWiki у LDAP"
+	"ldapgroups-desc": "Дозволяє синхронізувати групу користувачів з ресурсом LDAP"
 }
