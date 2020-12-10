@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Red Winged Duck"
+			"Red Winged Duck",
+			"Renessaince"
 		]
 	},
-	"ldapgroups-desc": "Кіраваньне сяброўствам у групе MediaWiki ў LDAP"
+	"ldapgroups-desc": "Дазваляе сынхранізаваць групу карыстальнікаў з рэсурсам LDAP"
 }
