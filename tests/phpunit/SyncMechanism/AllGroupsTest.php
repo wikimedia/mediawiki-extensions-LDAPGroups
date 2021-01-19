@@ -28,7 +28,7 @@ class AllGroupsTest extends MediaWikiTestCase {
 	/**
 	 *
 	 * @param string[] $locallyAvailableGroups
-	 * @param string[] $locallyManagedGroupsm
+	 * @param string[] $locallyManagedGroups
 	 * @param string[] $initialGroups
 	 * @param string[] $fullDNs
 	 * @param string[] $expectedGroups

@@ -8,6 +8,7 @@ use MediaWiki\Extension\LDAPProvider\Hook\UserLoadAfterLoadFromSession;
 
 class SyncUserGroupsAfterLoadSession extends UserLoadAfterLoadFromSession {
 
+	/** @inheritDoc */
 	protected $sessionDataKey = 'ldap-group-sync-last';
 
 	/**
