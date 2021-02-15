@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Matrafox"
+			"Matrafox",
+			"NGC 54"
 		]
 	},
-	"ldapgroups-desc": "Administrați apartenența la grupurile LDAP din MediaWiki"
+	"ldapgroups-desc": "Permite sincronizarea grupurilor de utilizator cu o resursă LDAP"
 }
