@@ -1,8 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Srđan"
-		]
-	},
-	"ldapgroups-desc": "Upravljanje grupnim MediaWiki-članstvom u LDAP-u"
-}

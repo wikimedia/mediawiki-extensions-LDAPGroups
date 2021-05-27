@@ -1,8 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Ykhwong"
-		]
-	},
-	"ldapgroups-desc": "LDAP으로 미디어위키 그룹 권한 관리"
-}
