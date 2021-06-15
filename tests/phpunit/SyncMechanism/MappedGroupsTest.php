@@ -43,10 +43,10 @@ class MappedGroupsTest extends MediaWikiTestCase {
 		] );
 		$logger = new NullLogger;
 
-		$syncMechanism = new MappedGroups( $logger );
+		$syncMechanism = new MappedGroups( $logger, $this->getServiceContainer()->getUserGroupManager() );
 		$syncMechanism->sync( $user, $groupList, $config );
 
-		$actualGroups = $user->getGroups();
+		$actualGroups = $this->getServiceContainer()->getUserGroupManager()->getUserGroups( $user );
 
 		sort( $actualGroups );
 		sort( $expectedGroups );

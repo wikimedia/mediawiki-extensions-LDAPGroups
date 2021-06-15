@@ -8,6 +8,7 @@ use MediaWiki\Extension\LDAPGroups\GroupSyncProcess;
 use MediaWiki\Extension\LDAPProvider\ClientFactory;
 use MediaWiki\Extension\LDAPProvider\DomainConfigFactory;
 use MediaWiki\Extension\LDAPProvider\UserDomainStore;
+use MediaWiki\MediaWikiServices;
 
 $maintPath = ( getenv( 'MW_INSTALL_PATH' ) !== false
 			  ? getenv( 'MW_INSTALL_PATH' )
@@ -34,6 +35,7 @@ class SyncGroups extends Maintenance {
 	 *
 	 */
 	public function execute() {
+		$services = MediaWikiServices::getInstance();
 		$username = $this->getOption( 'user' );
 		$user = \User::newFromName( $username );
 		if ( $user->getId() === 0 ) {
@@ -43,12 +45,12 @@ class SyncGroups extends Maintenance {
 
 		$this->output( "Syncing groups for '{$user->getName()}' (ID:{$user->getId()}) ...\n" );
 		$this->output( "\nOld groups:\n" );
-		$oldGroupMemberships = $user->getGroupMemberships();
+		$oldGroupMemberships = $services->getUserGroupManager()->getUserGroupMemberships( $user );
 		foreach ( $oldGroupMemberships as $oldGroupMembership ) {
 			$this->output( "* {$oldGroupMembership->getGroup()}\n" );
 		}
 
-		$loadBalancer = \MediaWiki\MediaWikiServices::getInstance()->getDBLoadBalancer();
+		$loadBalancer = $services->getDBLoadBalancer();
 		$domainStore = new UserDomainStore( $loadBalancer );
 		$domain = $domainStore->getDomainForUser( $user );
 		if ( $domain === null ) {
@@ -64,7 +66,7 @@ class SyncGroups extends Maintenance {
 		$process->run();
 
 		$this->output( "\nNew groups:\n" );
-		$newGroupMemberships = $user->getGroupMemberships();
+		$newGroupMemberships = $services->getUserGroupManager()->getUserGroupMemberships( $user );
 		foreach ( $newGroupMemberships as $newGroupMembership ) {
 			$this->output( "* {$newGroupMembership->getGroup()}\n" );
 		}
