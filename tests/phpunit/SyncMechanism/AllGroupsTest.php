@@ -45,10 +45,12 @@ class AllGroupsTest extends MediaWikiTestCase {
 		] );
 		$logger = new NullLogger;
 
-		$syncMechanism = new AllGroups( $logger, $locallyAvailableGroups );
+		$syncMechanism = new AllGroups(
+			$logger, $this->getServiceContainer()->getUserGroupManager(), $locallyAvailableGroups
+		);
 		$syncMechanism->sync( $user, $groupList, $config );
 
-		$actualGroups = $user->getGroups();
+		$actualGroups = $this->getServiceContainer()->getUserGroupManager()->getUserGroups( $user );
 
 		sort( $actualGroups );
 		sort( $expectedGroups );

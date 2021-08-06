@@ -3,6 +3,8 @@
 namespace MediaWiki\Extension\LDAPGroups\SyncMechanism;
 
 use MediaWiki\Extension\LDAPGroups\ISyncMechanism;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\User\UserGroupManager;
 
 abstract class Base implements ISyncMechanism {
 
@@ -36,12 +38,17 @@ abstract class Base implements ISyncMechanism {
 	 */
 	protected $logger = null;
 
+	/** @var UserGroupManager */
+	protected $userGroupManager;
+
 	/**
 	 *
 	 * @param \Psr\Log\LoggerInterface $logger
+	 * @param UserGroupManager $userGroupManager
 	 */
-	public function __construct( $logger ) {
+	public function __construct( $logger, $userGroupManager ) {
 		$this->logger = $logger;
+		$this->userGroupManager = $userGroupManager;
 	}
 
 	/**
@@ -51,7 +58,8 @@ abstract class Base implements ISyncMechanism {
 	 * @return ISyncMechanism
 	 */
 	public static function factory( $domainConfig, $logger ) {
-		return new static( $logger );
+		$userGroupManager = MediaWikiServices::getInstance()->getUserGroupManager();
+		return new static( $logger, $userGroupManager );
 	}
 
 	/**
@@ -83,7 +91,7 @@ abstract class Base implements ISyncMechanism {
 	 * @param string $group
 	 */
 	protected function addGroup( $group ) {
-		$success = $this->user->addGroup( $group );
+		$success = $this->userGroupManager->addUserToGroup( $this->user, $group );
 		$this->logger->info(
 			"Adding '$group' to '{$this->user}'."
 		);
@@ -99,7 +107,7 @@ abstract class Base implements ISyncMechanism {
 	 * @param string $group
 	 */
 	protected function removeGroup( $group ) {
-		$success = $this->user->removeGroup( $group );
+		$success = $this->userGroupManager->removeUserFromGroup( $this->user, $group );
 		$this->logger->info(
 			"Removing '$group' from '{$this->user}'."
 		);

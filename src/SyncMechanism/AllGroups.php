@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\LDAPGroups\SyncMechanism;
 
 use MediaWiki\Extension\LDAPGroups\Config;
+use MediaWiki\User\UserGroupManager;
 use User;
 
 class AllGroups extends Base {
@@ -20,12 +21,12 @@ class AllGroups extends Base {
 	protected $localAvailableGroups = [];
 
 	/**
-	 *
 	 * @param \Psr\Log\LoggerInterface $logger
+	 * @param UserGroupManager $userGroupManager
 	 * @param string[]|null $localAvailableGroups
 	 */
-	public function __construct( $logger, $localAvailableGroups = null ) {
-		parent::__construct( $logger );
+	public function __construct( $logger, $userGroupManager, $localAvailableGroups = null ) {
+		parent::__construct( $logger, $userGroupManager );
 		if ( $localAvailableGroups === null ) {
 			$localAvailableGroups = User::getAllGroups();
 		}
@@ -42,7 +43,7 @@ class AllGroups extends Base {
 			$this->config->get( Config::LOCALLY_MANAGED )
 		);
 
-		$currentGroups = array_map( 'strtolower', $this->user->getGroups() );
+		$currentGroups = array_map( 'strtolower', $this->userGroupManager->getUserGroups( $this->user ) );
 		$ldapGroups = $this->groupList->getShortNames();
 
 		$groupsToAdd = array_diff( $ldapGroups, $currentGroups );

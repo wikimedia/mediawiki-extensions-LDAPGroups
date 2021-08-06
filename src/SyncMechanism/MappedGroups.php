@@ -18,7 +18,7 @@ class MappedGroups extends Base {
 	protected function doSync() {
 		$this->map = $this->config->get( Config::MAPPING );
 
-		$currentLDAPGroups = $this->filterNonLDAPGroups( $this->user->getGroups() );
+		$currentLDAPGroups = $this->filterNonLDAPGroups( $this->userGroupManager->getUserGroups( $this->user ) );
 		$ldapGroupMembership = $this->mapGroupsFromLDAP();
 
 		$groupsToAdd = array_diff( $ldapGroupMembership, $currentLDAPGroups );
