@@ -5,11 +5,11 @@ namespace MediaWiki\Extension\LDAPGroups\Tests\SyncMechanism;
 use HashConfig;
 use MediaWiki\Extension\LDAPGroups\SyncMechanism\AllGroups;
 use MediaWiki\Extension\LDAPProvider\GroupList;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use Psr\Log\NullLogger;
 use TestUserRegistry;
 
-class AllGroupsTest extends MediaWikiTestCase {
+class AllGroupsTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @covers MediaWiki\Extension\LDAPGroups\SyncMechanism\AllGroups::factory
