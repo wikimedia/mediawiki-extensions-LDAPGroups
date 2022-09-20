@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\LDAPGroups\SyncMechanism;
 
 use MediaWiki\Extension\LDAPGroups\ISyncMechanism;
+use MediaWiki\MediaWikiServices;
 
 abstract class Base implements ISyncMechanism {
 
@@ -83,7 +84,8 @@ abstract class Base implements ISyncMechanism {
 	 * @param string $group
 	 */
 	protected function addGroup( $group ) {
-		$success = $this->user->addGroup( $group );
+		$success = MediaWikiServices::getInstance()->getUserGroupManager()
+			->addUserToGroup( $this->user, $group );
 		$this->logger->info(
 			"Adding '$group' to '{$this->user}'."
 		);
@@ -99,7 +101,8 @@ abstract class Base implements ISyncMechanism {
 	 * @param string $group
 	 */
 	protected function removeGroup( $group ) {
-		$success = $this->user->removeGroup( $group );
+		$success = MediaWikiServices::getInstance()->getUserGroupManager()
+			->removeUserFromGroup( $this->user, $group );
 		$this->logger->info(
 			"Removing '$group' from '{$this->user}'."
 		);

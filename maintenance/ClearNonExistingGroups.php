@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\LDAPGroups\Maintenance;
 
 use Maintenance;
+use MediaWiki\MediaWikiServices;
 use User;
 
 $maintPath = ( getenv( 'MW_INSTALL_PATH' ) !== false
@@ -38,8 +39,9 @@ class ClearNonExistingGroups extends Maintenance {
 			$dryRun = true;
 		}
 
+		$userGroupManager = MediaWikiServices::getInstance()->getUserGroupManager();
 		// e.g. [ 'A', 'B', 'C' ]
-		$locallyAvailableGroups = User::getAllGroups();
+		$locallyAvailableGroups = $userGroupManager->listAllGroups();
 		$dbr = $this->getDB( DB_REPLICA );
 		$res = $dbr->select( 'user', '*' );
 		foreach ( $res as $row ) {
@@ -47,7 +49,7 @@ class ClearNonExistingGroups extends Maintenance {
 
 			$this->output( "User '{$user->getName()}' ..." );
 			// e.g. [ 'A', 'B', 'D' ]
-			$userGroups = $user->getGroups();
+			$userGroups = $userGroupManager->getUserGroups( $user );
 
 			$groupsToRemove = [];
 			foreach ( $userGroups as $group ) {
@@ -59,7 +61,7 @@ class ClearNonExistingGroups extends Maintenance {
 			foreach ( $groupsToRemove as $groupToRemove ) {
 				$this->output( "    removing '$groupToRemove'\n" );
 				if ( !$dryRun ) {
-					$user->removeGroup( $groupToRemove );
+					$userGroupManager->removeUserFromGroup( $user, $groupToRemove );
 				}
 			}
 			$this->output( "done.\n" );

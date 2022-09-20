@@ -5,6 +5,7 @@ namespace MediaWiki\Extension\LDAPGroups\Tests\SyncMechanism;
 use HashConfig;
 use MediaWiki\Extension\LDAPGroups\SyncMechanism\AllGroups;
 use MediaWiki\Extension\LDAPProvider\GroupList;
+use MediaWiki\MediaWikiServices;
 use MediaWikiTestCase;
 use Psr\Log\NullLogger;
 use TestUserRegistry;
@@ -48,7 +49,8 @@ class AllGroupsTest extends MediaWikiTestCase {
 		$syncMechanism = new AllGroups( $logger, $locallyAvailableGroups );
 		$syncMechanism->sync( $user, $groupList, $config );
 
-		$actualGroups = $user->getGroups();
+		$actualGroups = MediaWikiServices::getInstance()->getUserGroupManager()
+			->getUserGroups( $user );
 
 		sort( $actualGroups );
 		sort( $expectedGroups );

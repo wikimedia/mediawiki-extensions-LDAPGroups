@@ -45,7 +45,8 @@ class SyncGroups extends Maintenance {
 
 		$this->output( "Syncing groups for '{$user->getName()}' (ID:{$user->getId()}) ...\n" );
 		$this->output( "\nOld groups:\n" );
-		$oldGroupMemberships = $user->getGroupMemberships();
+		$userGroupManager = $services->getUserGroupManager();
+		$oldGroupMemberships = $userGroupManager->getUserGroupMemberships( $user );
 		foreach ( $oldGroupMemberships as $oldGroupMembership ) {
 			$this->output( "* {$oldGroupMembership->getGroup()}\n" );
 		}
@@ -66,7 +67,7 @@ class SyncGroups extends Maintenance {
 		$process->run();
 
 		$this->output( "\nNew groups:\n" );
-		$newGroupMemberships = $user->getGroupMemberships();
+		$newGroupMemberships = $userGroupManager->getUserGroupMemberships( $user );
 		foreach ( $newGroupMemberships as $newGroupMembership ) {
 			$this->output( "* {$newGroupMembership->getGroup()}\n" );
 		}

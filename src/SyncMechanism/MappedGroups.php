@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\LDAPGroups\SyncMechanism;
 
 use MediaWiki\Extension\LDAPGroups\Config;
+use MediaWiki\MediaWikiServices;
 
 class MappedGroups extends Base {
 
@@ -18,7 +19,9 @@ class MappedGroups extends Base {
 	protected function doSync() {
 		$this->map = $this->config->get( Config::MAPPING );
 
-		$currentLDAPGroups = $this->filterNonLDAPGroups( $this->user->getGroups() );
+		$userGroups = MediaWikiServices::getInstance()->getUserGroupManager()
+			->getUserGroups( $this->user );
+		$currentLDAPGroups = $this->filterNonLDAPGroups( $userGroups );
 		$ldapGroupMembership = $this->mapGroupsFromLDAP();
 
 		$groupsToAdd = array_diff( $ldapGroupMembership, $currentLDAPGroups );
