@@ -37,7 +37,8 @@ class SyncGroups extends Maintenance {
 	public function execute() {
 		$services = MediaWikiServices::getInstance();
 		$username = $this->getOption( 'user' );
-		$user = \User::newFromName( $username );
+		$services = MediaWikiServices::getInstance();
+		$user = $services->getUserFactory()->newFromName( $username );
 		if ( $user->getId() === 0 ) {
 			$this->output( "User '$username' does not exist!\n" );
 			return;
