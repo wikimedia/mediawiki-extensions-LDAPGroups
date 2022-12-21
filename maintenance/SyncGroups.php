@@ -8,6 +8,7 @@ use MediaWiki\Extension\LDAPGroups\GroupSyncProcess;
 use MediaWiki\Extension\LDAPProvider\ClientFactory;
 use MediaWiki\Extension\LDAPProvider\DomainConfigFactory;
 use MediaWiki\Extension\LDAPProvider\UserDomainStore;
+use MediaWiki\MediaWikiServices;
 
 $maintPath = ( getenv( 'MW_INSTALL_PATH' ) !== false
 			  ? getenv( 'MW_INSTALL_PATH' )
@@ -35,7 +36,8 @@ class SyncGroups extends Maintenance {
 	 */
 	public function execute() {
 		$username = $this->getOption( 'user' );
-		$user = \User::newFromName( $username );
+		$services = MediaWikiServices::getInstance();
+		$user = $services->getUserFactory()->newFromName( $username );
 		if ( $user->getId() === 0 ) {
 			$this->output( "User '$username' does not exist!\n" );
 			return;
@@ -48,7 +50,7 @@ class SyncGroups extends Maintenance {
 			$this->output( "* {$oldGroupMembership->getGroup()}\n" );
 		}
 
-		$loadBalancer = \MediaWiki\MediaWikiServices::getInstance()->getDBLoadBalancer();
+		$loadBalancer = $services->getDBLoadBalancer();
 		$domainStore = new UserDomainStore( $loadBalancer );
 		$domain = $domainStore->getDomainForUser( $user );
 		if ( $domain === null ) {
