@@ -2,8 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Verdy p"
 		]
 	},
-	"ldapgroups-desc": "Permet la synchronisation du groupe utilisateur avec une ressource LDAP"
+	"ldapgroups-desc": "Permet la synchronisation des groupes d’utilisateurs avec une ressource LDAP"
 }
