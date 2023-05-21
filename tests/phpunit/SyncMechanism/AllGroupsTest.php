@@ -62,7 +62,7 @@ class AllGroupsTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function provideTestSyncData() {
+	public static function provideTestSyncData() {
 		$locallyAvailableGroups = [ 'bot', 'sysop', 'bureaucrat', 'Group_From_LDAP_1',
 			'Group_From_LDAP_2', 'Local_Group'
 		];
