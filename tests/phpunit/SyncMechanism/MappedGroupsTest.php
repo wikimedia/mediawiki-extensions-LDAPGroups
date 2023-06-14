@@ -58,7 +58,7 @@ class MappedGroupsTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	public function provideTestSyncData() {
+	public static function provideTestSyncData() {
 		return [
 				// https://www.mediawiki.org/w/index.php?title=Extension:LdapGroups&oldid=2595259#Group_mapping
 				'set-from-ldap-and-remove-local-1' => [
