@@ -72,20 +72,20 @@ class MappedGroupsTest extends MediaWikiIntegrationTestCase {
 							'cn=g003,OU=Groups,o=top',
 						]
 					],
-				[
+					[
 					'sysop',
 					'some_group',
 					'NavAndGuidance'
-				],
-				[
+					],
+					[
 					'nc=aws-production,ou=security group,o=top'
-				],
-				[
+					],
+					[
 					'sysop',
 					'some_group',
 					'AWSUsers'
-				]
-			],
+					]
+				],
 			'set-from-ldap-and-remove-local-2' => [
 				[
 					'mathematicians' => 'ou=mathematicians,dc=example,dc=com',
@@ -104,7 +104,7 @@ class MappedGroupsTest extends MediaWikiIntegrationTestCase {
 					'some_group',
 					'scientists'
 				]
-			],
+				],
 			'Topic:V3s73k1q4736ov68#1' => [
 				[
 					"sysop" => "cn=wiki,cn=groups,dc=xx,dc=xxx"
@@ -116,7 +116,7 @@ class MappedGroupsTest extends MediaWikiIntegrationTestCase {
 				[
 					'sysop'
 				]
-			],
+				],
 			'Topic:Vn9jblaqr69fim14#1' => [
 				[
 					"sysop" => "CN=Wiki_Admin,OU=Groups,DC=mydomain,DC=net",
@@ -133,7 +133,7 @@ class MappedGroupsTest extends MediaWikiIntegrationTestCase {
 				[
 					'wiki-read'
 				]
-			]
+				]
 		];
 	}
 }
