@@ -9,6 +9,10 @@ use MediaWikiIntegrationTestCase;
 use Psr\Log\NullLogger;
 use TestUserRegistry;
 
+/**
+ * @covers MediaWiki\Extension\LDAPGroups\SyncMechanism\AllGroups
+ * @group Database
+ */
 class AllGroupsTest extends MediaWikiIntegrationTestCase {
 
 	/**
