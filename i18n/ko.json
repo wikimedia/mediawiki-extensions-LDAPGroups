@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Dr1t jg"
+			"Suleiman the Magnificent Television"
 		]
 	},
-	"ldapgroups-desc": "LDAP 자원과 사용자 그룹 동기화를 허용"
+	"ldapgroups-desc": "사용자 그룹을 LDAP 리소스와 동기화할 수 있습니다"
 }
