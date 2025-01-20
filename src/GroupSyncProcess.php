@@ -5,6 +5,7 @@ namespace MediaWiki\Extension\LDAPGroups;
 use Exception;
 use MediaWiki\Extension\LDAPProvider\Client;
 use MediaWiki\Logger\LoggerFactory;
+use MediaWiki\User\User;
 use MWException;
 use Status;
 
@@ -12,7 +13,7 @@ class GroupSyncProcess {
 
 	/**
 	 *
-	 * @var \User
+	 * @var User
 	 */
 	protected $user = null;
 
@@ -42,7 +43,7 @@ class GroupSyncProcess {
 
 	/**
 	 *
-	 * @param \User $user
+	 * @param User $user
 	 * @param \Config $domainConfig
 	 * @param \MediaWiki\Extension\LDAPProvider\Client $client
 	 * @param array $callbackRegistry

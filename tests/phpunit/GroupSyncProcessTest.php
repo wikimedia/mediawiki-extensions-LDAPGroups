@@ -4,8 +4,8 @@ namespace MediaWiki\Extension\LDAPGroups\Tests;
 
 use HashConfig;
 use MediaWiki\Extension\LDAPGroups\GroupSyncProcess;
+use MediaWiki\User\User;
 use MediaWikiIntegrationTestCase;
-use User;
 
 class GroupSyncProcessTest extends MediaWikiIntegrationTestCase {
 
