@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\LDAPGroups\Maintenance;
 
 use Maintenance;
 use MediaWiki\MediaWikiServices;
-use User;
+use MediaWiki\User\User;
 
 $maintPath = ( getenv( 'MW_INSTALL_PATH' ) !== false
 			  ? getenv( 'MW_INSTALL_PATH' )

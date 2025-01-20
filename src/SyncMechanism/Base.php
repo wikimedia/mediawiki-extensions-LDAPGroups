@@ -4,13 +4,14 @@ namespace MediaWiki\Extension\LDAPGroups\SyncMechanism;
 
 use MediaWiki\Extension\LDAPGroups\ISyncMechanism;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\User\User;
 use MediaWiki\User\UserGroupManager;
 
 abstract class Base implements ISyncMechanism {
 
 	/**
 	 *
-	 * @var \User
+	 * @var User
 	 */
 	protected $user = null;
 
@@ -64,7 +65,7 @@ abstract class Base implements ISyncMechanism {
 
 	/**
 	 *
-	 * @param \User $user
+	 * @param User $user
 	 * @param \MediaWiki\Extension\LDAPProvider\GroupList $groupList
 	 * @param \Config $config
 	 * @return \Status
