@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\LDAPGroups\SyncMechanism;
 
+use MediaWiki\Config\Config;
 use MediaWiki\Extension\LDAPGroups\ISyncMechanism;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
@@ -23,7 +24,7 @@ abstract class Base implements ISyncMechanism {
 
 	/**
 	 *
-	 * @var \Config
+	 * @var Config
 	 */
 	protected $config = null;
 
@@ -54,7 +55,7 @@ abstract class Base implements ISyncMechanism {
 
 	/**
 	 *
-	 * @param \Config $domainConfig
+	 * @param Config $domainConfig
 	 * @param \Psr\Log\LoggerInterface $logger
 	 * @return ISyncMechanism
 	 */
@@ -67,7 +68,7 @@ abstract class Base implements ISyncMechanism {
 	 *
 	 * @param User $user
 	 * @param \MediaWiki\Extension\LDAPProvider\GroupList $groupList
-	 * @param \Config $config
+	 * @param Config $config
 	 * @return \Status
 	 */
 	public function sync( $user, $groupList, $config ) {
