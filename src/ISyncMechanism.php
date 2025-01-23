@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\LDAPGroups;
 
+use MediaWiki\Config\Config;
 use MediaWiki\User\User;
 
 interface ISyncMechanism {
@@ -9,7 +10,7 @@ interface ISyncMechanism {
 	/**
 	 * @param User $user
 	 * @param \MediaWiki\Extension\LDAPProvider\GroupList $groupList
-	 * @param \Config $config
+	 * @param Config $config
 	 * @return \Status
 	 */
 	public function sync( $user, $groupList, $config );
