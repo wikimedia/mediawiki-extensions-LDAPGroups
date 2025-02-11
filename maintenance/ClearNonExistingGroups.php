@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\LDAPGroups\Maintenance;
 
-use Maintenance;
+use MediaWiki\Maintenance\Maintenance;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
 
