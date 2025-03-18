@@ -43,7 +43,12 @@ class ClearNonExistingGroups extends Maintenance {
 		$userGroupManager = MediaWikiServices::getInstance()->getUserGroupManager();
 		$locallyAvailableGroups = $userGroupManager->listAllGroups();
 		$dbr = $this->getDB( DB_REPLICA );
-		$res = $dbr->select( 'user', '*' );
+		$res = $dbr->select(
+			'user',
+			'*',
+			'',
+			__METHOD__
+		);
 		foreach ( $res as $row ) {
 			$user = User::newFromRow( $row );
 
