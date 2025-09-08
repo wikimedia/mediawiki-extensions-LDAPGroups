@@ -7,14 +7,10 @@ use MediaWiki\Extension\LDAPGroups\Config;
 class MappedGroups extends Base {
 
 	/**
-	 *
 	 * @var array
 	 */
 	private $map;
 
-	/**
-	 *
-	 */
 	protected function doSync() {
 		$this->map = $this->config->get( Config::MAPPING );
 

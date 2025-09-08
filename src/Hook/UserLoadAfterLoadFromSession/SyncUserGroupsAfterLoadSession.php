@@ -30,7 +30,6 @@ class SyncUserGroupsAfterLoadSession extends UserLoadAfterLoadFromSession {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function getDomainConfigSection() {

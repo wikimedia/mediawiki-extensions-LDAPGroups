@@ -18,20 +18,14 @@ require_once $maintPath;
 
 class ClearNonExistingGroups extends Maintenance {
 
-	/**
-	 *
-	 */
 	public function __construct() {
 		parent::__construct();
 		$this->addOption( 'dry', 'Do not really apply changes' );
 	}
 
-	/**
-	 *
-	 */
 	public function execute() {
 		$this->output( "This will remove all groups from the database,"
-			. " that are not configured locally!\n" );
+		. " that are not configured locally!\n" );
 		$this->countDown( 5 );
 
 		$dryRun = false;
@@ -44,10 +38,10 @@ class ClearNonExistingGroups extends Maintenance {
 		$locallyAvailableGroups = $userGroupManager->listAllGroups();
 		$dbr = $this->getDB( DB_REPLICA );
 		$res = $dbr->select(
-			'user',
-			'*',
-			'',
-			__METHOD__
+		'user',
+		'*',
+		'',
+		__METHOD__
 		);
 		foreach ( $res as $row ) {
 			$user = User::newFromRow( $row );

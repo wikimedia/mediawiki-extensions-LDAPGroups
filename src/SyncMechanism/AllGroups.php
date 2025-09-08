@@ -33,13 +33,10 @@ class AllGroups extends Base {
 		$this->localAvailableGroups = $localAvailableGroups;
 	}
 
-	/**
-	 *
-	 */
 	protected function doSync() {
 		$locallyManagedGroups = array_merge(
-			$this->implicitLocallyManagedGroups,
-			$this->config->get( Config::LOCALLY_MANAGED )
+		$this->implicitLocallyManagedGroups,
+		$this->config->get( Config::LOCALLY_MANAGED )
 		);
 
 		$currentGroups = array_map( 'strtolower', $this->userGroupManager->getUserGroups( $this->user ) );
