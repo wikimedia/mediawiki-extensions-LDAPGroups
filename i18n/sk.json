@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"ldapgroups-desc": "Umožňuje synchronizáciu používateľských skupín so zdrojom LDAP"
+}
