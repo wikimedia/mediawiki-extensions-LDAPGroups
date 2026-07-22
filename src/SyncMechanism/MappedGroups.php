@@ -44,6 +44,9 @@ class MappedGroups extends Base {
 		return $ret;
 	}
 
+	/**
+	 * @return array
+	 */
 	private function mapGroupsFromLDAP() {
 		$allLDAPGroups = array_map( 'strtolower', $this->groupList->getFullDNs() );
 		$dnToWikiMap = [];
