@@ -22,18 +22,12 @@ require_once $maintPath;
 
 class SyncGroups extends Maintenance {
 
-	/**
-	 *
-	 */
 	public function __construct() {
 		parent::__construct();
 		$this->addOption( 'user', 'The local user name', true, true );
 		$this->requireExtension( 'LDAPGroups' );
 	}
 
-	/**
-	 *
-	 */
 	public function execute() {
 		$services = MediaWikiServices::getInstance();
 		$username = $this->getOption( 'user' );

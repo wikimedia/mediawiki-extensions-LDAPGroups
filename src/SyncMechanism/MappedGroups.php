@@ -7,14 +7,10 @@ use MediaWiki\Extension\LDAPGroups\Config;
 class MappedGroups extends Base {
 
 	/**
-	 *
 	 * @var array
 	 */
 	private $map;
 
-	/**
-	 *
-	 */
 	protected function doSync() {
 		$this->map = $this->config->get( Config::MAPPING );
 
@@ -48,6 +44,9 @@ class MappedGroups extends Base {
 		return $ret;
 	}
 
+	/**
+	 * @return array
+	 */
 	private function mapGroupsFromLDAP() {
 		$allLDAPGroups = array_map( 'strtolower', $this->groupList->getFullDNs() );
 		$dnToWikiMap = [];

@@ -33,9 +33,6 @@ class AllGroups extends Base {
 		$this->localAvailableGroups = $localAvailableGroups;
 	}
 
-	/**
-	 *
-	 */
 	protected function doSync() {
 		$locallyManagedGroups = array_merge(
 			$this->implicitLocallyManagedGroups,

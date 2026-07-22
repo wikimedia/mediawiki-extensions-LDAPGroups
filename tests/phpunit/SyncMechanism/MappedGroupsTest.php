@@ -30,7 +30,6 @@ class MappedGroupsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 *
 	 * @param string[] $mapping
 	 * @param string[] $initialGroups
 	 * @param string[] $fullDNs

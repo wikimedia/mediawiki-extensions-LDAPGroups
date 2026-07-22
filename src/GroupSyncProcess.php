@@ -13,37 +13,31 @@ use MWException;
 class GroupSyncProcess {
 
 	/**
-	 *
 	 * @var User
 	 */
 	protected $user = null;
 
 	/**
-	 *
 	 * @var Config
 	 */
 	protected $domainConfig = null;
 
 	/**
-	 *
 	 * @var Client
 	 */
 	protected $client = null;
 
 	/**
-	 *
 	 * @var array
 	 */
 	protected $callbackRegistry = [];
 
 	/**
-	 *
 	 * @var Status
 	 */
 	protected $status = null;
 
 	/**
-	 *
 	 * @param User $user
 	 * @param Config $domainConfig
 	 * @param \MediaWiki\Extension\LDAPProvider\Client $client
@@ -73,7 +67,6 @@ class GroupSyncProcess {
 	}
 
 	/**
-	 *
 	 * @return ISyncMechanism
 	 * @throws MWException
 	 */

@@ -30,7 +30,6 @@ class AllGroupsTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 *
 	 * @param string[] $locallyAvailableGroups
 	 * @param string[] $locallyManagedGroups
 	 * @param string[] $initialGroups

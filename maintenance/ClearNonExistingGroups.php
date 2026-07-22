@@ -18,17 +18,11 @@ require_once $maintPath;
 
 class ClearNonExistingGroups extends Maintenance {
 
-	/**
-	 *
-	 */
 	public function __construct() {
 		parent::__construct();
 		$this->addOption( 'dry', 'Do not really apply changes' );
 	}
 
-	/**
-	 *
-	 */
 	public function execute() {
 		$this->output( "This will remove all groups from the database,"
 			. " that are not configured locally!\n" );

@@ -12,31 +12,26 @@ use MediaWiki\User\UserGroupManager;
 abstract class Base implements ISyncMechanism {
 
 	/**
-	 *
 	 * @var User
 	 */
 	protected $user = null;
 
 	/**
-	 *
 	 * @var \MediaWiki\Extension\LDAPProvider\GroupList
 	 */
 	protected $groupList = null;
 
 	/**
-	 *
 	 * @var Config
 	 */
 	protected $config = null;
 
 	/**
-	 *
 	 * @var Status
 	 */
 	protected $status = null;
 
 	/**
-	 *
 	 * @var \Psr\Log\LoggerInterface
 	 */
 	protected $logger = null;
@@ -45,7 +40,6 @@ abstract class Base implements ISyncMechanism {
 	protected $userGroupManager;
 
 	/**
-	 *
 	 * @param \Psr\Log\LoggerInterface $logger
 	 * @param UserGroupManager $userGroupManager
 	 */
@@ -55,7 +49,6 @@ abstract class Base implements ISyncMechanism {
 	}
 
 	/**
-	 *
 	 * @param Config $domainConfig
 	 * @param \Psr\Log\LoggerInterface $logger
 	 * @return ISyncMechanism
@@ -66,7 +59,6 @@ abstract class Base implements ISyncMechanism {
 	}
 
 	/**
-	 *
 	 * @param User $user
 	 * @param \MediaWiki\Extension\LDAPProvider\GroupList $groupList
 	 * @param Config $config
@@ -90,7 +82,6 @@ abstract class Base implements ISyncMechanism {
 	abstract protected function doSync();
 
 	/**
-	 *
 	 * @param string $group
 	 */
 	protected function addGroup( $group ) {
@@ -106,7 +97,6 @@ abstract class Base implements ISyncMechanism {
 	}
 
 	/**
-	 *
 	 * @param string $group
 	 */
 	protected function removeGroup( $group ) {
